@@ -14,13 +14,10 @@ public class App {
             return MINI_CHARGE;
         } else {
 
-            double gallons_above = gallonsAbove(gallonsUsage);
+            double charableUnits = Math.ceil(gallonsAbove(gallonsUsage) / CCF);
 
-            double charableUnits = gallons_above / CCF;
-            charableUnits = Math.ceil(charableUnits);
-
-            double additinal = charableUnits * ADD_CCF_FEE;
-            return additinal + MINI_CHARGE;
+            double additinalFee = charableUnits * ADD_CCF_FEE;
+            return additinalFee + MINI_CHARGE;
         }
     }
 
