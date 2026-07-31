@@ -12,24 +12,22 @@ public class App {
     public static List<String> findStudentsWithIncompleteVolunteerEvents(
             List<String> students,
             Map<String, List<String>> attendeesMapping) {
-                List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
-
-
-                for (String currentSudent : students) {
-                    int count = 0;
-                    for(Map.Entry<String,List<String>> event: attendeesMapping.entrySet() ){
-                        String eventName = event.getKey();
-                        List<String> studentList = event.getValue();
-                        if(studentList.contains(currentSudent)){
-                            count++;
-                        }
-
-                    }
-                    if(count < MINI){
-                        result.add(currentSudent);
-                    }
+        for (String currentSudent : students) {
+            int count = 0;
+            for (Map.Entry<String, List<String>> event : attendeesMapping.entrySet()) {
+                String eventName = event.getKey();
+                List<String> studentList = event.getValue();
+                if (studentList.contains(currentSudent)) {
+                    count++;
                 }
+
+            }
+            if (count < MINI) {
+                result.add(currentSudent);
+            }
+        }
 
         return result;
     }
