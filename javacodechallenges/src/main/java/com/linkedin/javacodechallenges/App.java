@@ -4,13 +4,9 @@ import java.util.List;
 
 public class App {
     public static double calculateAverageChangeInvested(List<Double> purchases) {
-        if (purchases.isEmpty()) {
-            return 0;
-        }
-        
         return purchases.stream()
-                .map(purchas -> Math.ceil(purchas) - purchas)
-                .reduce(0.0d, (acc, value) -> acc + value) / purchases.size();
+                .mapToDouble(purchas -> Math.ceil(purchas) - purchas)
+                .average().orElse(0);
     }
 
     public static void main(String[] args) {
