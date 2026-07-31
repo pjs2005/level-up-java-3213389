@@ -16,6 +16,13 @@ public class App {
         if (leastExpensiveOpt.isPresent()) {
             System.out.println("The least expensive item is " +
                     leastExpensiveOpt.get());
+
+        }
+
+        Optional<StoreItem> cheapestOpt = StoreItem.findCheaperst(items);
+        if (cheapestOpt.isPresent()) {
+            System.out.println("The cheapest item is " +
+                    cheapestOpt.get());
         }
     }
 }

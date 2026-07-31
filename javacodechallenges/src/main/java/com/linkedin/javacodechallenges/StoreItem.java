@@ -20,8 +20,16 @@ public class StoreItem {
     return items.stream().min(Comparator.comparing(StoreItem::calculatePrice));
   }
 
+  public static Optional<StoreItem> findCheaperst(Collection<StoreItem> items) {
+    return items.stream().min(Comparator.comparing(StoreItem::getRRP));
+  }
+
   private double calculatePrice() {
     return retailPrice - (retailPrice * discount);
+  }
+
+  private double getRRP() {
+    return retailPrice;
   }
 
   @Override
