@@ -16,18 +16,21 @@ public class App {
             Map.entry('Z', 10));
 
     public static int wordScoreCalculator(String word) {
-        // char[] charsOfWord = word.toUpperCase().toCharArray();
-        // int points = 0;
-        // for (char letter : charsOfWord) {
-        // points += getLetterScore(letter);
-        // }
+        /*
+         * // char[] charsOfWord = word.toUpperCase().toCharArray();
+         * // int points = 0;
+         * // for (char letter : charsOfWord) {
+         * // points += getLetterScore(letter);
+         * // }
+         * 
+         * // return points;
+         */
 
-        // return points;
-
-        word = word.toUpperCase();
+        String normalizedWord = word.toUpperCase();
         AtomicInteger score = new AtomicInteger(0);
 
-        word.chars()
+        normalizedWord.chars()
+        .filter(Character::isAlphabetic)
                 .mapToObj(n -> (char) n)
                 .forEach(letter -> {
                     score.getAndAdd(getLetterScore(letter));
