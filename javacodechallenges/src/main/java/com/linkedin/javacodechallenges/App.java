@@ -1,14 +1,37 @@
 package com.linkedin.javacodechallenges;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class App {
+
+    private static int MINI = 2;
+
     public static List<String> findStudentsWithIncompleteVolunteerEvents(
             List<String> students,
             Map<String, List<String>> attendeesMapping) {
-        // TODO: implement function
-        return List.of();
+                List<String> result = new ArrayList<>();
+
+
+
+                for (String currentSudent : students) {
+                    int count = 0;
+                    for(Map.Entry<String,List<String>> event: attendeesMapping.entrySet() ){
+                        String eventName = event.getKey();
+                        List<String> studentList = event.getValue();
+                        if(studentList.contains(currentSudent)){
+                            count++;
+                        }
+
+                    }
+                    if(count < MINI){
+                        result.add(currentSudent);
+                    }
+                }
+
+        return result;
     }
 
     public static void main(String[] args) {
