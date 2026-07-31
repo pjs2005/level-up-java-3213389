@@ -1,6 +1,7 @@
 package com.linkedin.javacodechallenges;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
 
 import lombok.AllArgsConstructor;
@@ -16,24 +17,11 @@ public class StoreItem {
   double discount;
 
   public static Optional<StoreItem> findLeastExpensive(Collection<StoreItem> items) {
-    // TODO: Implement
-    Collection<StoreItem> calculatedItems = items
-        .stream().map(item -> {
-          String name = item.getName();
-          Double newPrice = item.getRetailPrice() * (1 - item.getDiscount());
+    return items.stream().min(Comparator.comparing(StoreItem::calculatePrice));
+  }
 
-          return new StoreItem(name, newPrice, 0);
-        }).toList();
-    calculatedItems.stream().forEach(item -> System.out.println(item.display()));
-    return calculatedItems.stream().sorted((o1, o2) -> {
-      if (o1.getRetailPrice() < o2.getRetailPrice()) {
-        return -1;
-      } else if (o1.getRetailPrice() > o2.getRetailPrice()) {
-        return 1;
-      } else {
-        return 0;
-      }
-    }).findFirst();
+  private double calculatePrice() {
+    return retailPrice - (retailPrice * discount);
   }
 
   @Override
