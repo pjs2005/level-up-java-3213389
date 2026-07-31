@@ -3,13 +3,14 @@ package com.linkedin.javacodechallenges;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class App {
 
     private static int MINI = 2;
 
-    public static List<String> findStudentsWithIncompleteVolunteerEvents(
+    public static List<String> findStudentsWithIncompleteVolunteerEvents2(
             List<String> students,
             Map<String, List<String>> attendeesMapping) {
         List<String> result = new ArrayList<>();
@@ -28,6 +29,30 @@ public class App {
                 result.add(currentSudent);
             }
         }
+
+        return result;
+    }
+
+    public static List<String> findStudentsWithIncompleteVolunteerEvents(
+            List<String> students,
+            Map<String, List<String>> attendeesMapping) {
+        List<String> result = new ArrayList<>();
+
+        Map<String, Integer> studentsEventCount = students
+                .stream()
+                .collect(Collectors.toMap(s -> s, n -> 0));
+
+        attendeesMapping.values().forEach(list -> list.stream().filter(student -> studentsEventCount
+                .containsKey(student))
+                .forEach(filteredStudent -> studentsEventCount.put(filteredStudent,
+                        studentsEventCount.get(filteredStudent) + 1)));
+
+        result = studentsEventCount
+                .entrySet()
+                .stream()
+                .filter(map -> map.getValue() < MINI)
+                .map(StudentEventsMap -> StudentEventsMap.getKey())
+                .collect(Collectors.toList());
 
         return result;
     }
