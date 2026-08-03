@@ -1,11 +1,45 @@
 package com.linkedin.javacodechallenges;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
-public class App 
-{
+public class App {
     public static void redactTextFile(String fileName,
                                       String[] redactedWordsArray) {
+
+        File file = new File(fileName);
+        try (Scanner scanner = new Scanner(file)) {
+            StringBuilder redactedText = new StringBuilder();
+            while(scanner.hasNext()){
+                String line = scanner.nextLine();
+
+                String[] splitwords = line.split(" ");
+                for(String checking: splitwords) {
+                    String valueToWrite = checking;
+                    System.out.println("checking: " + checking);
+                    for (String value : redactedWordsArray) {
+                        if (checking.equals(value)) {
+                            valueToWrite = "REDACTED";
+                            break;
+                        }
+                    }
+                    redactedText.append(valueToWrite);
+                    redactedText.append(" ");
+                }
+                redactedText.append("\n");
+
+
+            }
+
+            FileWriter myWriter = new FileWriter(fileName);
+            myWriter.write(redactedText.toString());
+            myWriter.close();
+
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
     }
 
