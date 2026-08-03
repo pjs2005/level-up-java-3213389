@@ -40,6 +40,7 @@ public class App {
             myWriter.write(redactedText.toString());
             myWriter.close();
 
+
         } catch (Exception e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

@@ -12,7 +12,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.App.executor": "Debug"
+    "Application.App.executor": "Run"
   }
 }]]></component>
   <component name="RunManager">
