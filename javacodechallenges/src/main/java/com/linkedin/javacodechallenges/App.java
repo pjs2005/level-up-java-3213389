@@ -1,11 +1,15 @@
 package com.linkedin.javacodechallenges;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Hello world!
@@ -16,58 +20,31 @@ public class App {
         // TODO: Call https://icanhazdadjoke.com/ API and display joke
         try {
 
-            URL url = new URL("https://icanhazdadjoke.com/");
+            String API_URL = "https://icanhazdadjoke.com/";
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            HttpRequest request = HttpRequest.newBuilder().GET()
+                    .setHeader("Accept", "application/json")
+                    .uri(URI.create(API_URL)).build();
 
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setRequestMethod("GET");
-            conn.connect();
+            java.net.http.HttpClient client = HttpClient.newBuilder().build();
 
-            // Getting the response code
-            int responsecode = conn.getResponseCode();
+            java.net.http.HttpResponse<String> response = client.send(
+                    request, java.net.http.HttpResponse.BodyHandlers.ofString());
 
-            if (responsecode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responsecode);
-            } else {
+            String jsonData = response.body();
+            System.out.println(jsonData);
 
-                String inline = "";
-                Scanner scanner = new Scanner(url.openStream());
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Gson gson = gsonBuilder.create();
+            Joke resObject = gson.fromJson(jsonData, Joke.class);
 
-                // Write all the JSON data into a string using a scanner
-                while (scanner.hasNext()) {
-                    inline += scanner.nextLine();
-                }
+            System.out.println("Joke ID: " + resObject.getId());
+            System.out.println("Joke: " + resObject.getJoke());
+            System.out.println("Status: " + resObject.getStatus());
 
-                // Close the scanner
-                scanner.close();
+        }
 
-                // Using the JSON simple library parse the string into a json object
-                JSONParser parse = new JSONParser();
-                JSONObject data_obj = (JSONObject) parse.parse(inline);
-
-                System.out.println("Joke: " + data_obj.get("joke"));
-
-                // // Get the required object from the above created object
-                // JSONObject obj = (JSONObject) data_obj.get("Global");
-
-                // // Get the required data using its key
-                // System.out.println(obj.get("TotalRecovered"));
-
-                // JSONArray arr = (JSONArray) data_obj.get("Countries");
-
-                // for (int i = 0; i < arr.size(); i++) {
-
-                // JSONObject new_obj = (JSONObject) arr.get(i);
-
-                // if (new_obj.get("Slug").equals("albania")) {
-                // System.out.println("Total Recovered: " + new_obj.get("TotalRecovered"));
-                // break;
-                // }
-                // }
-            }
-
-        } catch (Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
