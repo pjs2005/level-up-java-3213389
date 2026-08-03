@@ -38,9 +38,9 @@ public class App {
             Gson gson = gsonBuilder.create();
             Joke resObject = gson.fromJson(jsonData, Joke.class);
 
-            System.out.println("Joke ID: " + resObject.getId());
+            // System.out.println("Joke ID: " + resObject.getId());
             System.out.println("Joke: " + resObject.getJoke());
-            System.out.println("Status: " + resObject.getStatus());
+            // System.out.println("Status: " + resObject.getStatus());
 
         }
 
