@@ -12,7 +12,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.App.executor": "Run"
+    "Application.App.executor": "Debug"
   }
 }]]></component>
   <component name="RunManager">
@@ -59,15 +59,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/linkedin/javacodechallenges/App.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/linkedin/javacodechallenges/App.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="5" />
+          <line>29</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="i &lt; splitwords.length -1" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

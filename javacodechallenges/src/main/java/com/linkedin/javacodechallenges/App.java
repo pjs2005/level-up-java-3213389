@@ -15,7 +15,8 @@ public class App {
                 String line = scanner.nextLine();
 
                 String[] splitwords = line.split(" ");
-                for(String checking: splitwords) {
+                for(int i = 0 ; i < splitwords.length; i++)  {
+                    String checking = splitwords[i];
                     String valueToWrite = checking;
                     System.out.println("checking: " + checking);
                     for (String value : redactedWordsArray) {
@@ -25,7 +26,10 @@ public class App {
                         }
                     }
                     redactedText.append(valueToWrite);
-                    redactedText.append(" ");
+                    if(i < splitwords.length -1){
+                        redactedText.append(" ");
+                    }
+
                 }
                 redactedText.append("\n");
 
